@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <head>
+        <style>
+            /* Add your styles for the images and underlines here */
+            .uploaded-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 20px; /* Add space between each uploaded item */
+            }
+
+            .uploaded-image {
+                width: 150px; /* Set a fixed width for all images */
+                height: 150px; /* Set a fixed height for all images */
+                object-fit: cover; /* Ensure the aspect ratio is maintained */
+                border: 1px solid #ddd;
+                padding: 10px;
+                margin-right: 20px; /* Add space between the image and plot */
+            }
+
+            .prediction {
+                border-bottom: 1px solid #ddd; /* Add underline to the prediction */
+                padding-bottom: 5px; /* Adjust spacing as needed */
+                margin-bottom: 10px; /* Add space after the prediction */
+            }
+
+            .prediction-plot {
+                width: 300px; /* Set a fixed width for the plot */
+                height: auto; /* Allow the height to adjust based on the width */
+            }
+
+            /* Add styles for the classes section */
+            .class-section {
+                margin-bottom: 20px;
+            }
+
+            .class-item {
+                display: inline-block;
+                margin-right: 10px;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <h1 class="center">CIFAR-10 Image Classification</h1>
+
+    {% if images %}
+        <h2 class="center">Recent Uploads and Predictions</h2>
+        <ul>
+            {% for img in images %}
+                <li class="uploaded-item">
+                    <img src="{{ img.image.url }}" alt="Uploaded Image" class="uploaded-image">
+                    <div>
+                        <p class="prediction">Our model predicted the uploaded image object as <b>{{ img.predicted_class }}</b></p>
+                        {% if img.probabilities %}
+                            <p>Raw probabilities:</p>
+                            <ul>
+                                {% for key, value in img.probabilities.items %}
+                                    <li>{{ key }}: {{ value }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        {% if img.plot_path %}
+                            <img src="{{ img.plot_path.url }}" alt="Prediction Plot" class="prediction-plot">
+                        {% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <!-- Classes Section -->
+    <div class="class-section">
+        <p>Upload a picture from one of the following objects:</p>
+        {% for class_item in classes %}
+            <span class="class-item">{{ class_item }}</span>
+        {% endfor %}
+    </div>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="image">Choose an image:</label>
+        <input type="file" name="image" id="image" accept="image/*">
+        <input type="submit" value="Upload and Classify">
+    </form>
+    <br>
+    <a href="{% url 'clear_uploads' %}">Clear Recent Uploads</a>
+{% endblock %}

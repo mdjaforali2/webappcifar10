@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <style>
+        /* Add your styles for the prediction results page here */
+        .prediction-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .predicted-class {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007BFF; /* Blue color for emphasis */
+        }
+
+        .probabilities-container {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: row-reverse; /* Switched to row-reverse */
+            justify-content: space-around; /* Adjust as needed */
+            align-items: center;
+        }
+
+        .prediction-image {
+            max-width: 45%; /* Adjust size as needed */
+            height: auto;
+        }
+    </style>
+
+    <div class="prediction-container">
+        <h2>Prediction Results</h2>
+        
+        <div>
+            <p>Our model predicts the uploaded image as <b>{{ predicted_class }}</b></p>
+        </div>
+
+        {% if probabilities %}
+            <div class="probabilities-container">
+                {% if image_path %}
+                    <img src="{{ image_path }}" alt="Uploaded Image" class="prediction-image">
+                {% endif %}
+                <img src="data:image/png;base64,{{ plot_base64 }}" alt="Probability Plot" class="prediction-image">
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

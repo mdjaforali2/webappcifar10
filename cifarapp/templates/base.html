@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CIFAR Webapp</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .info {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+
+        /* Style the navigation bar */
+        ul.navbar {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+            margin: 0;
+            background-color: #fff; /* Background color for the navigation bar */
+        }
+
+        ul.navbar li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        ul.navbar li:last-child {
+            margin-right: 0;
+        }
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Bar -->
+        <ul class="navbar">
+            <li><h2><a href="/">Home</a></h2></li>
+            <li><h2><a href="/cifarapp/upload/">CIFAR App</a></h2></li>
+            <li><h2><a href="https://mdjaforali291218.pythonanywhere.com/">Contact</a><h2></li>
+        </ul>
+
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
